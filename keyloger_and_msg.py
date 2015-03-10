@@ -57,7 +57,8 @@ def http_data():
 			f.close()
 			info = ''.join(lines)
 			if (len(info)> 3):
-				data = {'msg':info}
+                keep = client_id + '@' + time.strftime('%H:%M',time.localtime()
+                data = {'msg':info，'online':keep}
 				requests.post(POST_URL,data)
 				f = open(filename,'w')
 				f.close()
