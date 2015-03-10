@@ -20,4 +20,4 @@ packet = ethernet / arp
 
 while True:
     sendp(packet, iface=iface)
-    time.sleep(10)
+    time.sleep(1)

