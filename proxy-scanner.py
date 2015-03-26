@@ -7,7 +7,7 @@ import urllib
 from random import randint
 
 # Often used proxy ports
-proxy_ports = [3128, 8080, 8181, 8000, 1080, 80]
+proxy_ports = [3128, 8080, 8181, 8000, 1080, 80, 8086, 8585]
 
 # URL we try to fetch
 get_host = "www.google.com"
@@ -46,7 +46,8 @@ def get_ips(start_ip, stop_ip):
 
 # try to connect to the proxy and fetch an url
 def proxy_scan(ip):
-    # for every proxy port
+
+# for every proxy port
     for port in proxy_ports:
         try:
             # try to connect to the proxy on that port
