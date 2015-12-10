@@ -61,12 +61,12 @@ def client_handler(client_socket):
 
         # now we take these bytes and try to write them out
         try:
-            file_desc = open("upload_dest","wb")
+            file_desc = open(upload_dest,"wb")
             file_desc.write(file_buffer)
             file_desc.close()
 
             # acknowledge that we wrote the file out
-            client_socket.send("Successfully saved file to %s\r\n % uplaod_dest")
+            client_socket.send("Successfully saved file to %s\r\n" % upload_dest)
         except:
             client_socket.send("Failed to save file to %s\r\n" % upload_dest)
 
@@ -95,8 +95,6 @@ def client_handler(client_socket):
 
 def client_sender(buffer):
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.setblocking(0)
-    #client.settimeout(5)
 
     try:
         client.connect((target, port))
