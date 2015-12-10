@@ -25,8 +25,8 @@ def usage():
     print 
     print "Examples:"
     print "  ./mynetcat.py -t 10.0.0.2 -p 666 -l -c"
-    print "  ./mynetcat.py -t 10.0.0.2 -p 666 -l -u=./a.txt"
-    print "  ./mynetcat.py -t 10.0.0.2 -p 666 -l -e=cat /etc/passwd"
+    print "  ./mynetcat.py -t 10.0.0.2 -p 666 -l -u a.txt"
+    print "  ./mynetcat.py -t 10.0.0.2 -p 666 -l -e cat\\/etc/passwd"
     print "  echo 'heheda' | ./mynetcat.py -t 10.0.0.2 -p 666"
     sys.exit(0)
 
