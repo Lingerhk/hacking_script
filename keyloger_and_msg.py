@@ -5,8 +5,8 @@
 #  And add an function to send message to the client.
 #  Using PyInstaller converts Python into executable Windows programs.
 #
-#  Author:linger
-#  Mail:lingerhk@gmail.com
+#  Author: s0nnet
+#  Mail: s0nnet@sina.com
 
 import os
 import sys
