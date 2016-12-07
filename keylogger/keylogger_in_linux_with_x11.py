@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Copyright (c) 2011, Andrew Moffat
 # All rights reserved.
 
