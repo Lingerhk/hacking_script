@@ -1,6 +1,6 @@
 /* a simple keylogger write in c++
  * Just running in Windows, and test in Windows7(64bit).
- * Author: s0nnet <http://ww.s0nnet.com>
+ * Author: s0nnet <http://www.s0nnet.com>
  */
 
 
