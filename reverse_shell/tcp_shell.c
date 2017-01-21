@@ -1,6 +1,6 @@
 /*
  * >  反弹shell C语言版
- * >  (支持ip和域名)
+ * >  (支持ip和域名, Linux平台)
  * >　author: s0nnet
  * >  see <www.s0nnet.com>
  */
