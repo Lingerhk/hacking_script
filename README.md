@@ -10,4 +10,4 @@
 * powershell  自己写的安全类powershell脚本
 * util_tools  安全方面实用使用的小工具
 * reverse_shell  反弹shell的各种姿势  
-
+* bash_backdoor bash版反弹shell后门
